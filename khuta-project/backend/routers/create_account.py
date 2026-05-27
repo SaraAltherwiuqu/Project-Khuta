@@ -15,7 +15,7 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(..., min_length=8, max_length=30)
     gender: str
-    age: int = Field(..., ge=18, le=120)
+    age: int = Field(..., ge=13, le=100)
     phone: str = Field(..., min_length=10, max_length=15)
 
 
