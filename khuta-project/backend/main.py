@@ -9,8 +9,6 @@ from routers.update_profile import router as update_profile_router
 from routers.reset_password import router as reset_password_router
 from routers.email_verified import router as email_verified_router
 from routers.view import router as map_router
-from routers.matches import router as matches_router
-
 from routers.tickets import router as tickets_router
 from routers.seats import router as seats_router
 from routers.payment import router as payment_router
@@ -38,7 +36,6 @@ app.include_router(email_verified_router)
 
 app.include_router(map_router, prefix="/api/v1", tags=["Map"])
 
-app.include_router(matches_router)
 
 app.include_router(tickets_router)
 app.include_router(seats_router)
