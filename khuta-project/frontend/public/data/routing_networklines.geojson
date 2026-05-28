@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "routing_networklines_topology_fixed_for_walkways",
+  "name": "routing_networklines_facilities_exits_on_green",
   "crs": {
     "type": "name",
     "properties": {
@@ -16,18 +16,20 @@
         "name": "west side gate connector",
         "source": 1,
         "target": 2,
-        "cost": 29.913,
-        "reverse_cost": 29.913,
+        "cost": 14.425,
+        "reverse_cost": 14.425,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 29.913,
+        "length": 14.425,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 5
+        "split_from_original_id": 5,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -51,18 +53,20 @@
         "name": "east side gate connector",
         "source": 3,
         "target": 4,
-        "cost": 29.913,
-        "reverse_cost": 29.913,
+        "cost": 14.425,
+        "reverse_cost": 14.425,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 29.913,
+        "length": 14.425,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 6
+        "split_from_original_id": 6,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -84,26 +88,28 @@
         "fid": 3,
         "id": 3,
         "name": "north west gate connector",
-        "source": 5,
+        "source": 38,
         "target": 6,
-        "cost": 30.238,
-        "reverse_cost": 30.238,
+        "cost": 22.239,
+        "reverse_cost": 22.239,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 30.238,
+        "length": 22.239,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 7
+        "split_from_original_id": 7,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            39.12225,
+            39.12245,
             22.09013
           ],
           [
@@ -119,26 +125,28 @@
         "fid": 4,
         "id": 4,
         "name": "north east gate connector",
-        "source": 7,
+        "source": 39,
         "target": 8,
-        "cost": 30.238,
-        "reverse_cost": 30.238,
+        "cost": 22.239,
+        "reverse_cost": 22.239,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 30.238,
+        "length": 22.239,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 8
+        "split_from_original_id": 8,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            39.12325,
+            39.12305,
             22.09013
           ],
           [
@@ -154,26 +162,28 @@
         "fid": 5,
         "id": 5,
         "name": "south west gate connector",
-        "source": 9,
+        "source": 40,
         "target": 10,
-        "cost": 30.238,
-        "reverse_cost": 30.238,
+        "cost": 22.239,
+        "reverse_cost": 22.239,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 30.238,
+        "length": 22.239,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 9
+        "split_from_original_id": 9,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            39.12225,
+            39.12245,
             22.08937
           ],
           [
@@ -189,26 +199,28 @@
         "fid": 6,
         "id": 6,
         "name": "south east gate connector",
-        "source": 11,
+        "source": 41,
         "target": 12,
-        "cost": 30.238,
-        "reverse_cost": 30.238,
+        "cost": 22.239,
+        "reverse_cost": 22.239,
         "floor_id": null,
         "network_type": "gate_path",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 30.238,
+        "length": 22.239,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 10
+        "split_from_original_id": 10,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            39.12325,
+            39.12305,
             22.08937
           ],
           [
@@ -224,27 +236,29 @@
         "fid": 7,
         "id": 7,
         "name": "west medical approach",
-        "source": 1,
+        "source": 42,
         "target": 13,
-        "cost": 21.167,
-        "reverse_cost": 21.167,
+        "cost": 20.015,
+        "reverse_cost": 20.015,
         "floor_id": null,
         "network_type": "facility_approach",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 21.167,
+        "length": 20.015,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 11
+        "split_from_original_id": 11,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
             39.12225,
-            22.08975
+            22.08993
           ],
           [
             39.12218,
@@ -259,27 +273,29 @@
         "fid": 8,
         "id": 8,
         "name": "east medical approach",
-        "source": 3,
+        "source": 43,
         "target": 14,
-        "cost": 21.167,
-        "reverse_cost": 21.167,
+        "cost": 20.015,
+        "reverse_cost": 20.015,
         "floor_id": null,
         "network_type": "facility_approach",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 21.167,
+        "length": 20.015,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 12
+        "split_from_original_id": 12,
+        "pink_point_adjusted": true,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
             39.12325,
-            22.08975
+            22.08993
           ],
           [
             39.12332,
@@ -296,18 +312,19 @@
         "name": "north food approach",
         "source": 15,
         "target": 16,
-        "cost": 7.185,
-        "reverse_cost": 7.185,
+        "cost": 7.228,
+        "reverse_cost": 7.228,
         "floor_id": null,
         "network_type": "facility_approach",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 7.185,
+        "length": 7.228,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 13
+        "split_from_original_id": 13,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -331,18 +348,19 @@
         "name": "south food approach",
         "source": 17,
         "target": 18,
-        "cost": 7.185,
-        "reverse_cost": 7.185,
+        "cost": 7.228,
+        "reverse_cost": 7.228,
         "floor_id": null,
         "network_type": "facility_approach",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 7.185,
+        "length": 7.228,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 14
+        "split_from_original_id": 14,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -363,27 +381,28 @@
       "properties": {
         "fid": 11,
         "id": 11,
-        "name": "south prayer approach",
-        "source": 9,
+        "name": "south prayer approach from green line",
+        "source": 56,
         "target": 19,
-        "cost": 39.447,
-        "reverse_cost": 39.447,
+        "cost": 7.792,
+        "reverse_cost": 7.792,
         "floor_id": null,
         "network_type": "facility_approach",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 39.447,
+        "length": 7.792,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 15
+        "split_from_original_id": 15,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            39.12225,
+            39.122625,
             22.08937
           ],
           [
@@ -401,18 +420,19 @@
         "name": "inner north field-side aisle segment 1",
         "source": 20,
         "target": 26,
-        "cost": 24.24,
-        "reverse_cost": 24.24,
+        "cost": 24.213,
+        "reverse_cost": 24.213,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 24.24,
+        "length": 24.213,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 16
+        "split_from_original_id": 16,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -436,18 +456,19 @@
         "name": "inner north field-side aisle segment 2",
         "source": 26,
         "target": 21,
-        "cost": 24.24,
-        "reverse_cost": 24.24,
+        "cost": 24.213,
+        "reverse_cost": 24.213,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 24.24,
+        "length": 24.213,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 16
+        "split_from_original_id": 16,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -471,18 +492,19 @@
         "name": "inner south field-side aisle segment 1",
         "source": 22,
         "target": 27,
-        "cost": 24.24,
-        "reverse_cost": 24.24,
+        "cost": 24.213,
+        "reverse_cost": 24.213,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 24.24,
+        "length": 24.213,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 17
+        "split_from_original_id": 17,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -506,18 +528,19 @@
         "name": "inner south field-side aisle segment 2",
         "source": 27,
         "target": 23,
-        "cost": 24.24,
-        "reverse_cost": 24.24,
+        "cost": 24.213,
+        "reverse_cost": 24.213,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 24.24,
+        "length": 24.213,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 17
+        "split_from_original_id": 17,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -541,18 +564,19 @@
         "name": "inner west field-side aisle segment 1",
         "source": 22,
         "target": 24,
-        "cost": 14.923,
-        "reverse_cost": 14.923,
+        "cost": 15.011,
+        "reverse_cost": 15.011,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 14.923,
+        "length": 15.011,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 18
+        "split_from_original_id": 18,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -576,18 +600,19 @@
         "name": "inner west field-side aisle segment 2",
         "source": 24,
         "target": 20,
-        "cost": 14.923,
-        "reverse_cost": 14.923,
+        "cost": 15.011,
+        "reverse_cost": 15.011,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 14.923,
+        "length": 15.011,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 18
+        "split_from_original_id": 18,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -611,18 +636,19 @@
         "name": "inner east field-side aisle segment 1",
         "source": 23,
         "target": 25,
-        "cost": 14.923,
-        "reverse_cost": 14.923,
+        "cost": 15.011,
+        "reverse_cost": 15.011,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 14.923,
+        "length": 15.011,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 19
+        "split_from_original_id": 19,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -646,18 +672,19 @@
         "name": "inner east field-side aisle segment 2",
         "source": 25,
         "target": 21,
-        "cost": 14.923,
-        "reverse_cost": 14.923,
+        "cost": 15.011,
+        "reverse_cost": 15.011,
         "floor_id": null,
         "network_type": "inner_aisle",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 14.923,
+        "length": 15.011,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 19
+        "split_from_original_id": 19,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -669,146 +696,6 @@
           [
             39.122985,
             22.089885
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 20,
-        "id": 20,
-        "name": "west middle connector to inner aisle",
-        "source": 1,
-        "target": 24,
-        "cost": 27.334,
-        "reverse_cost": 27.334,
-        "floor_id": null,
-        "network_type": "connector",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 27.334,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 20
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12225,
-            22.08975
-          ],
-          [
-            39.122515,
-            22.08975
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 21,
-        "id": 21,
-        "name": "east middle connector to inner aisle",
-        "source": 25,
-        "target": 3,
-        "cost": 27.334,
-        "reverse_cost": 27.334,
-        "floor_id": null,
-        "network_type": "connector",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 27.334,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 21
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.122985,
-            22.08975
-          ],
-          [
-            39.12325,
-            22.08975
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 22,
-        "id": 22,
-        "name": "north middle connector to inner aisle",
-        "source": 26,
-        "target": 15,
-        "cost": 27.082,
-        "reverse_cost": 27.082,
-        "floor_id": null,
-        "network_type": "connector",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 27.082,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 22
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12275,
-            22.089885
-          ],
-          [
-            39.12275,
-            22.09013
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 23,
-        "id": 23,
-        "name": "south middle connector to inner aisle",
-        "source": 17,
-        "target": 27,
-        "cost": 27.082,
-        "reverse_cost": 27.082,
-        "floor_id": null,
-        "network_type": "connector",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 27.082,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 23
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12275,
-            22.08937
-          ],
-          [
-            39.12275,
-            22.089615
           ]
         ]
       }
@@ -821,18 +708,19 @@
         "name": "west upper section connector",
         "source": 5,
         "target": 20,
-        "cost": 38.479,
-        "reverse_cost": 38.479,
+        "cost": 38.57,
+        "reverse_cost": 38.57,
         "floor_id": null,
         "network_type": "connector",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 38.479,
+        "length": 38.57,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 24
+        "split_from_original_id": 24,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -856,18 +744,19 @@
         "name": "west lower section connector",
         "source": 9,
         "target": 22,
-        "cost": 38.479,
-        "reverse_cost": 38.479,
+        "cost": 38.57,
+        "reverse_cost": 38.57,
         "floor_id": null,
         "network_type": "connector",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 38.479,
+        "length": 38.57,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 25
+        "split_from_original_id": 25,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -891,18 +780,19 @@
         "name": "east upper section connector",
         "source": 21,
         "target": 7,
-        "cost": 38.479,
-        "reverse_cost": 38.479,
+        "cost": 38.57,
+        "reverse_cost": 38.57,
         "floor_id": null,
         "network_type": "connector",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 38.479,
+        "length": 38.57,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 26
+        "split_from_original_id": 26,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -926,18 +816,19 @@
         "name": "east lower section connector",
         "source": 23,
         "target": 11,
-        "cost": 38.479,
-        "reverse_cost": 38.479,
+        "cost": 38.57,
+        "reverse_cost": 38.57,
         "floor_id": null,
         "network_type": "connector",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 38.479,
+        "length": 38.57,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 27
+        "split_from_original_id": 27,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -956,163 +847,24 @@
     {
       "type": "Feature",
       "properties": {
-        "fid": 28,
-        "id": 28,
-        "name": "north concourse NW-MN",
-        "source": 5,
-        "target": 15,
-        "cost": 51.574,
-        "reverse_cost": 51.574,
-        "floor_id": null,
-        "network_type": "corridor",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 51.574,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 1
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12225,
-            22.09013
-          ],
-          [
-            39.12275,
-            22.09013
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 29,
-        "id": 29,
-        "name": "north concourse MN-NE",
-        "source": 15,
-        "target": 7,
-        "cost": 51.574,
-        "reverse_cost": 51.574,
-        "floor_id": null,
-        "network_type": "corridor",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 51.574,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 28
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12275,
-            22.09013
-          ],
-          [
-            39.12325,
-            22.09013
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 30,
-        "id": 30,
-        "name": "south concourse SW-MS",
-        "source": 9,
-        "target": 17,
-        "cost": 51.574,
-        "reverse_cost": 51.574,
-        "floor_id": null,
-        "network_type": "corridor",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 51.574,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 2
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12225,
-            22.08937
-          ],
-          [
-            39.12275,
-            22.08937
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 31,
-        "id": 31,
-        "name": "south concourse MS-SE",
-        "source": 17,
-        "target": 11,
-        "cost": 51.574,
-        "reverse_cost": 51.574,
-        "floor_id": null,
-        "network_type": "corridor",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 51.574,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 29
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12275,
-            22.08937
-          ],
-          [
-            39.12325,
-            22.08937
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "fid": 32,
         "id": 32,
         "name": "west concourse SW-MW",
         "source": 9,
         "target": 1,
-        "cost": 42.005,
-        "reverse_cost": 42.005,
+        "cost": 42.254,
+        "reverse_cost": 42.254,
         "floor_id": null,
         "network_type": "corridor",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 42.005,
+        "length": 42.254,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 3
+        "split_from_original_id": 3,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -1124,41 +876,6 @@
           [
             39.12225,
             22.08975
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 33,
-        "id": 33,
-        "name": "west concourse MW-NW",
-        "source": 1,
-        "target": 5,
-        "cost": 42.005,
-        "reverse_cost": 42.005,
-        "floor_id": null,
-        "network_type": "corridor",
-        "floor_name": "z1",
-        "floor_num": 1,
-        "length": 42.005,
-        "speed": 1,
-        "access_type": "walk",
-        "matched_to_3d_walkways": true,
-        "topology_fixed": true,
-        "split_from_original_id": 30
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            39.12225,
-            22.08975
-          ],
-          [
-            39.12225,
-            22.09013
           ]
         ]
       }
@@ -1171,18 +888,19 @@
         "name": "east concourse SE-ME",
         "source": 11,
         "target": 3,
-        "cost": 42.005,
-        "reverse_cost": 42.005,
+        "cost": 42.254,
+        "reverse_cost": 42.254,
         "floor_id": null,
         "network_type": "corridor",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 42.005,
+        "length": 42.254,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 4
+        "split_from_original_id": 4,
+        "connected_fix": true
       },
       "geometry": {
         "type": "LineString",
@@ -1201,23 +919,381 @@
     {
       "type": "Feature",
       "properties": {
-        "fid": 35,
-        "id": 35,
-        "name": "east concourse ME-NE",
-        "source": 3,
-        "target": 7,
-        "cost": 42.005,
-        "reverse_cost": 42.005,
+        "fid": 36,
+        "id": 36,
+        "name": "north concourse NW-to-gate5-start",
+        "source": 5,
+        "target": 38,
+        "cost": 20.606,
+        "reverse_cost": 20.606,
         "floor_id": null,
         "network_type": "corridor",
         "floor_name": "z1",
         "floor_num": 1,
-        "length": 42.005,
+        "length": 20.606,
         "speed": 1,
         "access_type": "walk",
         "matched_to_3d_walkways": true,
         "topology_fixed": true,
-        "split_from_original_id": 31
+        "split_from_original_id": 28,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.09013
+          ],
+          [
+            39.12245,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 37,
+        "id": 37,
+        "name": "north concourse gate5-start-to-MN",
+        "source": 38,
+        "target": 15,
+        "cost": 30.91,
+        "reverse_cost": 30.91,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 30.91,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 28,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12245,
+            22.09013
+          ],
+          [
+            39.12275,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 38,
+        "id": 38,
+        "name": "north concourse MN-to-gate4-start",
+        "source": 15,
+        "target": 39,
+        "cost": 30.91,
+        "reverse_cost": 30.91,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 30.91,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 29,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12275,
+            22.09013
+          ],
+          [
+            39.12305,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 39,
+        "id": 39,
+        "name": "north concourse gate4-start-to-NE",
+        "source": 39,
+        "target": 7,
+        "cost": 20.606,
+        "reverse_cost": 20.606,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 20.606,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 29,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12305,
+            22.09013
+          ],
+          [
+            39.12325,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 40,
+        "id": 40,
+        "name": "south concourse SW-to-gate1-start",
+        "source": 9,
+        "target": 40,
+        "cost": 20.607,
+        "reverse_cost": 20.607,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 20.607,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 30,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.08937
+          ],
+          [
+            39.12245,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 41,
+        "id": 41,
+        "name": "south concourse gate1-start-to-prayer-start",
+        "source": 40,
+        "target": 56,
+        "cost": 18.051,
+        "reverse_cost": 18.051,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 18.051,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 30,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12245,
+            22.08937
+          ],
+          [
+            39.122625,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 42,
+        "id": 42,
+        "name": "south concourse MS-to-gate2-start",
+        "source": 17,
+        "target": 41,
+        "cost": 30.91,
+        "reverse_cost": 30.91,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 30.91,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 31,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12275,
+            22.08937
+          ],
+          [
+            39.12305,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 43,
+        "id": 43,
+        "name": "south concourse gate2-start-to-SE",
+        "source": 41,
+        "target": 11,
+        "cost": 20.607,
+        "reverse_cost": 20.607,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 20.607,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 31,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12305,
+            22.08937
+          ],
+          [
+            39.12325,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 48,
+        "id": 48,
+        "name": "west concourse MW-to-clinic-start",
+        "source": 1,
+        "target": 42,
+        "cost": 20.038,
+        "reverse_cost": 20.038,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 20.038,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.08975
+          ],
+          [
+            39.12225,
+            22.08993
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 49,
+        "id": 49,
+        "name": "west concourse clinic-start-to-NW",
+        "source": 42,
+        "target": 5,
+        "cost": 22.264,
+        "reverse_cost": 22.264,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 22.264,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.08993
+          ],
+          [
+            39.12225,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 50,
+        "id": 50,
+        "name": "east concourse ME-to-clinic-start",
+        "source": 3,
+        "target": 43,
+        "cost": 20.038,
+        "reverse_cost": 20.038,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 20.038,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
       },
       "geometry": {
         "type": "LineString",
@@ -1228,7 +1304,218 @@
           ],
           [
             39.12325,
+            22.08993
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 51,
+        "id": 51,
+        "name": "east concourse clinic-start-to-NE",
+        "source": 43,
+        "target": 7,
+        "cost": 22.264,
+        "reverse_cost": 22.264,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 22.264,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12325,
+            22.08993
+          ],
+          [
+            39.12325,
             22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 52,
+        "id": 52,
+        "name": "north west emergency exit approach",
+        "source": 5,
+        "target": 52,
+        "cost": 15.472,
+        "reverse_cost": 15.472,
+        "floor_id": null,
+        "network_type": "facility_approach",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 15.472,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.09013
+          ],
+          [
+            39.1221,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 53,
+        "id": 53,
+        "name": "north east emergency exit approach",
+        "source": 7,
+        "target": 53,
+        "cost": 15.472,
+        "reverse_cost": 15.472,
+        "floor_id": null,
+        "network_type": "facility_approach",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 15.472,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12325,
+            22.09013
+          ],
+          [
+            39.1234,
+            22.09013
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 54,
+        "id": 54,
+        "name": "south west emergency exit approach",
+        "source": 9,
+        "target": 54,
+        "cost": 15.472,
+        "reverse_cost": 15.472,
+        "floor_id": null,
+        "network_type": "facility_approach",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 15.472,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12225,
+            22.08937
+          ],
+          [
+            39.1221,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 55,
+        "id": 55,
+        "name": "south east emergency exit approach",
+        "source": 11,
+        "target": 55,
+        "cost": 15.472,
+        "reverse_cost": 15.472,
+        "floor_id": null,
+        "network_type": "facility_approach",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 15.472,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "adjusted_to_green_start": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.12325,
+            22.08937
+          ],
+          [
+            39.1234,
+            22.08937
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 56,
+        "id": 56,
+        "name": "south concourse prayer-start-to-MS",
+        "source": 56,
+        "target": 17,
+        "cost": 12.894,
+        "reverse_cost": 12.894,
+        "floor_id": null,
+        "network_type": "corridor",
+        "floor_name": "z1",
+        "floor_num": 1,
+        "length": 12.894,
+        "speed": 1,
+        "access_type": "walk",
+        "matched_to_3d_walkways": true,
+        "topology_fixed": true,
+        "split_from_original_id": 2,
+        "connected_fix": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.122625,
+            22.08937
+          ],
+          [
+            39.12275,
+            22.08937
           ]
         ]
       }

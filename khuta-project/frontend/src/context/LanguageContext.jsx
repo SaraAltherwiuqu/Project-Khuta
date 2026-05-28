@@ -11,7 +11,7 @@ const TRANSLATIONS = {
         login: "Login",
         register: "Create Account",
         profile: "My Profile",
-        map: "Guide Me",
+        map: "Navigation",
         logout: "Logout",
 
         liveScore: "Live Score",
@@ -81,9 +81,65 @@ const TRANSLATIONS = {
 
         profileSubtitle: "Manage your personal information",
         profileUpdated: "Profile updated successfully",
-        projectTitle: "Khuta",
-        projectSubtitle: "Your smart companion inside the stadium. Book, locate your gate & seat, and live the match experience intelligently."
-        
+
+        mainTitle: "Stadium Navigation",
+        mainSubtitle: "Choose your start point, select your destination, and find the best route.",
+        findRoute: "Find Best Route",
+        backendRouting: "Smart indoor routing",
+        startPoint: "From",
+        destination: "To",
+        notSelected: "Not selected",
+        clearSelection: "Clear",
+        routeMsg: "Select a start point and destination.",
+        calculatingRoute: "Calculating route...",
+        routeError: "Error",
+        failedBackend: "Failed to connect to backend",
+        twoPointsSelected: "Two points selected. Click Find Best Route to calculate the route.",
+        startSelected: "Start point selected. Select the destination point.",
+        selectTwoPointsFirst: "Select any two points on the map first.",
+
+        nearbyFacilities: "Nearby Facilities",
+        nearest: "Nearest",
+        selectStartFirst: "Select a start point first to find the nearest facilities.",
+        loadingNearest: "Loading nearest facilities...",
+        noNearbyResults: "No nearby results.",
+        clickFacilityHint: "Click a facility icon on the map to show the nearest places of the same type.",
+        couldNotLoadNearby: "Could not load nearby facilities.",
+        approxDistance: "Approx. distance",
+        distance: "Distance",
+
+        legend: "Legend",
+        entryGate: "Entry Gate",
+        emergencyExit: "Emergency Exit",
+        restrooms: "Restrooms",
+        foodBeverage: "Food & Beverage",
+        firstAid: "First Aid",
+        prayerRoom: "Prayer Room",
+        facilityLabels: {
+            restroom: "Restrooms",
+            food: "Food & Beverage",
+            medical: "First Aid",
+            exit: "Emergency Exit",
+            prayer: "Prayer Room",
+            gate: "Entry Gate",
+            facility: "Facility"
+        },
+
+        gateClickArea: "Gate selected",
+        gate3d: "3D gate",
+        locationSelected: "Location selected",
+
+        row: "Row",
+        seat: "Seat",
+        section: "Section",
+        status: "Status",
+        statusAvailable: "Available",
+        statusReserved: "Reserved",
+        statusSold: "Sold",
+
+        youReachedDestination: "You have reached your destination",
+        goToSection: "Go to section",
+        seatGuidanceNote: "Go to the selected section and look for your row and seat number."
     },
 
     ar: {
@@ -91,7 +147,7 @@ const TRANSLATIONS = {
         login: "تسجيل الدخول",
         register: "إنشاء حساب",
         profile: "ملفي الشخصي",
-        map: "وجّهني",
+        map: "الملاحة",
         logout: "تسجيل الخروج",
 
         liveScore: "النتائج المباشرة",
@@ -132,7 +188,7 @@ const TRANSLATIONS = {
         myBookings: "حجوزاتي",
         favorites: "النادي المفضل",
         payment: "الدفع",
-        seatMap: "خريطةالمقاعد",
+        seatMap: "خريطة المقاعد",
 
         bookNow: "احجز الآن",
         confirmPayment: "تأكيد الدفع",
@@ -161,8 +217,65 @@ const TRANSLATIONS = {
 
         profileSubtitle: "إدارة معلوماتك الشخصية",
         profileUpdated: "تم تحديث الملف الشخصي بنجاح",
-        projectTitle: "خُطى",
-        projectSubtitle: "رَفِيقُك الذكي دَاخِل المَلعَب. احجِز، حَدِّد بَوَّابَتِك ومَقعَدِك، وعِش أَجوَاء المُبَارَاة بِذَكَاء."
+
+        mainTitle: "الملاحة داخل الاستاد",
+        mainSubtitle: "اختاري نقطة البداية والوجهة للوصول إلى أفضل مسار.",
+        findRoute: "إيجاد أفضل مسار",
+        backendRouting: "توجيه ذكي داخل الاستاد",
+        startPoint: "من",
+        destination: "إلى",
+        notSelected: "غير محدد",
+        clearSelection: "مسح الاختيار",
+        routeMsg: "اختاري نقطة بداية ووجهة.",
+        calculatingRoute: "جاري حساب المسار...",
+        routeError: "خطأ",
+        failedBackend: "فشل الاتصال بالخادم",
+        twoPointsSelected: "تم اختيار نقطتين. اضغطي إيجاد أفضل مسار لحساب المسار.",
+        startSelected: "تم اختيار نقطة البداية. اختاري نقطة النهاية.",
+        selectTwoPointsFirst: "اختاري أي نقطتين على الخريطة أولًا.",
+
+        nearbyFacilities: "المرافق القريبة",
+        nearest: "أقرب",
+        selectStartFirst: "اختاري نقطة بداية أولًا لحساب أقرب المرافق.",
+        loadingNearest: "جاري تحميل أقرب المرافق...",
+        noNearbyResults: "لا توجد نتائج قريبة.",
+        clickFacilityHint: "اضغطي على أيقونة مرفق داخل الخريطة لعرض الأقرب من نفس النوع.",
+        couldNotLoadNearby: "تعذر جلب المرافق القريبة.",
+        approxDistance: "المسافة التقريبية",
+        distance: "المسافة",
+
+        legend: "مفتاح الرموز",
+        entryGate: "بوابة دخول",
+        emergencyExit: "مخرج طوارئ",
+        restrooms: "دورات مياه",
+        foodBeverage: "مطاعم ومشروبات",
+        firstAid: "خدمات طبية",
+        prayerRoom: "مصلى",
+        facilityLabels: {
+            restroom: "دورات مياه",
+            food: "مطاعم ومشروبات",
+            medical: "خدمات طبية",
+            exit: "مخرج طوارئ",
+            prayer: "مصلى",
+            gate: "بوابة دخول",
+            facility: "مرفق"
+        },
+
+        gateClickArea: "تم اختيار البوابة",
+        gate3d: "بوابة ثلاثية الأبعاد",
+        locationSelected: "تم اختيار الموقع",
+
+        row: "الصف",
+        seat: "المقعد",
+        section: "السكشن",
+        status: "الحالة",
+        statusAvailable: "متاح",
+        statusReserved: "محجوز",
+        statusSold: "مباع",
+
+        youReachedDestination: "وصلتِ إلى وجهتك",
+        goToSection: "توجهي إلى السكشن",
+        seatGuidanceNote: "توجهي إلى السكشن المحدد وابحثي عن الصف ورقم المقعد."
     }
 };
 

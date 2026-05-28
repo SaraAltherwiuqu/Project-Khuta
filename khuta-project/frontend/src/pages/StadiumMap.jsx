@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useLanguage } from "../context/LanguageContext";
@@ -23,21 +23,14 @@ const STAND_COLORS = {
   South: "#e67e22",
   West:  "#8e44ad",
 };
-const STAND_COLORS_DARK = {
-  North: "#1f6fb7",
-  East:  "#1e8449",
-  South: "#ca6f1e",
-  West:  "#7d3c98",
-};
 const FACILITY_CONFIG = {
-  restroom: { icon: "🚻", color: "#0a68b4", label: "دورات مياه", labelEn: "Restrooms" },
-  food:     { icon: "🍴", color: "#c71111", label: "مطاعم", labelEn: "Food & Beverage" },
-  medical:  { icon: "✚",  color: "#116e08", label: "خدمات طبية", labelEn: "First Aid" },
-  exit:     { icon: "🚪", color: "#00897B", label: "مخرج طوارئ", labelEn: "Emergency Exit" },
-  prayer:   { icon: "🕌", color: "#6D4C41", label: "مصلى", labelEn: "Prayer Room" },
-  gate:     { icon: "🚩", color: "#1B5E20", label: "بوابات الدخول", labelEn: "Entry Gate" },
+  restroom: { icon: "🚻", color: "#0a68b4" },
+  food: { icon: "🍴", color: "#c71111" },
+  medical: { icon: "✚", color: "#116e08" },
+  exit: { icon: "🚪", color: "#00897B" },
+  prayer: { icon: "🕌", color: "#6D4C41" },
+  gate: { icon: "🚩", color: "#1B5E20" },
 };
-
 
 let popupRefGlobal = null;
 function App() {
@@ -46,36 +39,16 @@ function App() {
   const routeAnimationRef = useRef(null);
   const [selectedSeat,   setSelectedSeat]   = useState(null);
   const [selectedGate,   setSelectedGate]   = useState(null);
-  // يسمح باختيار أي نقطتين على الخريطة كبداية ونهاية، وليس بوابة ثم مقعد فقط
   const selectedRouteRef = useRef({ start: null, end: null });
-  // نخزن بيانات الممرات حتى نرسل للباك أقرب نقطة مشي بدل نقطة داخل المدرج
-  const walkwaysRef = useRef(null);
-  // نخزن كراسي 3D حتى نغير لون الكرسي/الصف حسب المقعد الذي يختاره المستخدم
   const seats3dRef = useRef(null);
-  const [seatFilter,     setSeatFilter]     = useState("all");
-  const [activeFilter,   setActiveFilter]   = useState("all");
-const [msg, setMsg] = useState("");  const [routeDrawn,     setRouteDrawn]     = useState(false);
-  
-const { lang, t } = useLanguage();
+const [msg, setMsg] = useState("");
+  const [routeDrawn, setRouteDrawn] = useState(false);
+  const [nearbyFacilities, setNearbyFacilities] = useState([]);
+  const [nearbyType, setNearbyType] = useState(null);
+  const [nearbyLoading, setNearbyLoading] = useState(false);
+  const [nearbyError, setNearbyError] = useState("");
 
-  const filterOptions = useMemo(() => [
-    { value: "all",       label: lang === "ar" ? "كل المقاعد" : "All Seats",   color: "#555" },
-    { value: "available", label: lang === "ar" ? "المتاحة" : "Available",      color: "#27ae60" },
-    { value: "reserved",  label: lang === "ar" ? "المحجوزة" : "Reserved",     color: "#95a5a6" },
-    { value: "sold",      label: lang === "ar" ? "المباعة" : "Sold",      color: "#e74c3c" },
-  ], [lang]);
-  const legendStands = useMemo(() => [
-    { key: "North", label: "المدرج الشمالي",  ar: "N" },
-    { key: "East",  label: "المدرج الشرقي",   ar: "E" },
-    { key: "South", label: "المدرج الجنوبي",  ar: "S" },
-    { key: "West",  label: "المدرج الغربي",   ar: "W" },
-  ], []);
-  const facilityLegend = useMemo(() => [
-    { type: "gate",     label: "بوابات الدخول" },
-    { type: "restroom", label: "دورات مياه" },
-    { type: "food",     label: "مطاعم ومشروبات" },
-    { type: "medical",  label: "خدمات طبية" },
-  ], []);
+const { lang, t } = useLanguage();
   useEffect(() => {
     const map = new maplibregl.Map({
       container: "map",
@@ -86,7 +59,7 @@ const { lang, t } = useLanguage();
         layers: [{
           id: "background",
           type: "background",
-          paint: { "background-color": "#ebe7d8" },
+          paint: { "background-color": "#9ee7a3" },
         }],
        glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
       },
@@ -102,7 +75,7 @@ const { lang, t } = useLanguage();
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
     map.on("load", async () => {
       setTimeout(() => map.resize(), 150);
-      
+
       try {
         const [fieldData, building, sections, seats, seats3d, gates, facilities, gates3d, facilities3d ,walkways3d,surroundings] = await Promise.all([
           fetch(DATA.field).then(r => r.json()),
@@ -117,7 +90,6 @@ const { lang, t } = useLanguage();
           fetch(DATA.walkways3d).then(r => r.json()),
         fetch(DATA.surroundings).then(r => r.json()),
         ]);
-        walkwaysRef.current = walkways3d;
 map.addSource("surroundings", { type: "geojson", data: surroundings });
 
 map.addLayer({
@@ -150,7 +122,7 @@ surroundings.features
       .setLngLat(feature.geometry.coordinates)
       .addTo(map);
   });
-        // ── جسم الاستاد من ملف building.geojson ──
+
         map.addSource("stadium-building", { type: "geojson", data: building });
         map.addLayer({
           id: "building-base",
@@ -200,9 +172,7 @@ surroundings.features
             "fill-extrusion-opacity": 0.95,
           },
         });
- 
 
-        // ── أرضية الملعب ──
         const field = fieldData;
         const fieldDecor = makeFieldDecor(field);
         map.addSource("field", { type: "geojson", data: field });
@@ -212,7 +182,7 @@ surroundings.features
           source: "field",
           paint: { "fill-color": "#2e8b3c", "fill-opacity": 1 },
         });
-        // زخارف الملعب
+
         map.addSource("field-decor", { type: "geojson", data: fieldDecor });
         map.addLayer({
           id: "field-stripes-dark",
@@ -248,7 +218,7 @@ surroundings.features
           filter: ["==", ["get", "kind"], "spot"],
           paint: { "circle-radius": 3, "circle-color": "#ffffff", "circle-opacity": 0.95 },
         });
-        // ── ممرات 3D ──
+
         map.addSource("walkways-3d", {
           type: "geojson",
           data: walkways3d,
@@ -274,7 +244,7 @@ map.addLayer({
     "line-opacity": 0.55
   }
 });
-        // ── السكشنات (المدرجات) ──
+
         map.addSource("sections", { type: "geojson", data: sections });
         map.addLayer({
           id: "sections-3d",
@@ -289,7 +259,7 @@ map.addLayer({
               ["==", ["get", "stand"], "West"],  STAND_COLORS.West,
               "#5897c7",
             ],
-            "fill-extrusion-height": ["get", "height"], // Uses the height values like 4, 8, 12, 16
+            "fill-extrusion-height": ["get", "height"],
             "fill-extrusion-base": 0,
           },
         });
@@ -301,7 +271,7 @@ map.addLayer({
         });
         map.moveLayer("walkways-3d");
        map.moveLayer("walkways-outline");
-        // ── ممرات بين السكشنات ──
+
         const aisles = makeSectionAisles(sections);
         map.addSource("section-aisles", { type: "geojson", data: aisles });
         map.addLayer({
@@ -312,7 +282,7 @@ map.addLayer({
     "line-opacity": 0,
   },
         });
-        // ── أسماء السكشنات ──
+
         map.addLayer({
           id: "section-labels",
           type: "symbol",
@@ -330,11 +300,11 @@ map.addLayer({
             "text-halo-width": 2.5,
           },
         });
-        // ── المقاعد ──
+
         const seatPoints = normalizeSeatPoints(seats);
         seats3dRef.current = normalizeSeat3dCollection(seats3d);
         map.addSource("seats", { type: "geojson", data: seatPoints });
-        // كراسي 3D: للعرض فقط، بينما نقاط seats تبقى موجودة للباك إند والاختيار
+
         map.addSource("seats-3d", { type: "geojson", data: seats3dRef.current });
        map.addLayer({
   id: "seats-3d",
@@ -347,7 +317,7 @@ map.addLayer({
     "fill-extrusion-opacity": 1,
   },
 });
-        // طبقة المقاعد الأساسية مخفية لتجنب ازدحام النقاط
+
         map.addLayer({
           id: "seats",
           type: "circle",
@@ -359,7 +329,7 @@ map.addLayer({
   type: "circle",
   source: "seats",
   paint: {
-    // تظهر فقط للمقعد الذي يختاره المستخدم، وبكذا يتغير لون الكرسي حسب الاختيار
+
     "circle-radius": ["case", ["boolean", ["feature-state", "selected"], false], 8, 0],
     "circle-color": "#ff2d55",
     "circle-stroke-color": "#ffffff",
@@ -377,7 +347,6 @@ map.addLayer({
   },
 });
 
-// طبقات ديناميكية: تتغير حسب المقعد الذي يختاره المستخدم، بدون تثبيت مقعد معيّن
 map.addSource("selected-row-3d", { type: "geojson", data: emptyRoute() });
 map.addLayer({
   id: "selected-row-3d",
@@ -404,7 +373,6 @@ map.addLayer({
   },
 });
 
-// احتياط: لو ما تطابقت بيانات seats_3d، تظهر دائرة واضحة فوق نقطة المقعد المختار
 map.addSource("selected-seat-point", { type: "geojson", data: emptyRoute() });
 map.addLayer({
   id: "selected-seat-point",
@@ -448,7 +416,7 @@ map.addLayer({
           },
           paint: { "text-color": "#fff", "text-halo-color": "#000", "text-halo-width": 0 },
         });
-        // ── البوابات: نقاط مخفية للباك إند + فتحات 3D على الجدار ──
+
         map.addSource("gates", { type: "geojson", data: gates });
         map.addLayer({
           id: "gates-click-area",
@@ -474,7 +442,7 @@ map.addLayer({
             "fill-extrusion-opacity": 0.96,
           },
         });
-        // ── المرافق: نقاط للباك إند + صناديق 3D صغيرة على الجدار ──
+
         map.addSource("facilities", { type: "geojson", data: facilities });
         map.addSource("facilities-3d", { type: "geojson", data: facilities3d });
         map.addLayer({
@@ -504,8 +472,7 @@ map.addLayer({
   }
 });
 addFacilityMarkers(map, facilities);
-        // ── خط المسار ──
-        // التصميم الجديد: مسار أزرق/تركوازي ناعم ومتحرك بدون الأسود والأصفر
+
         map.addSource("route", { type: "geojson", data: emptyRoute() });
         map.addLayer({
           id: "route-glow",
@@ -542,7 +509,7 @@ addFacilityMarkers(map, facilities);
             "line-dasharray": [0, 4, 3],
           },
         });
-        // ── أحداث النقر ──
+
         let lastSelectedId = null;
        map.on("click", "seats-click", (e) => {
           const f = e.features?.[0];
@@ -555,20 +522,23 @@ addFacilityMarkers(map, facilities);
           const p = f.properties || {};
           const coords = f.geometry.coordinates;
 
-          // يغيّر لون الكرسي/الصف حسب المقعد الذي ضغط عليه المستخدم
           highlightSelectedSeat(p, coords);
-          
-          // قراءة اللغة من المرجع لضمان جلب الحالة الصحيحة للبوب اب
+
           const currentLang = mapRef.current?.customLang || "en";
           const labels = t;
-          
+
           selectRoutePoint(
-            { ...p, type: "seat", label: p.seat_id || p.id || p.seat || "Seat", coordinates: coords },
+            {
+              ...p,
+              type: "seat",
+              label: p.seat_id || p.id || p.seat || "Seat",
+              coordinates: coords,
+            },
             e.lngLat,
             `<div class="pop-title">${p.seat_id || p.id || "Seat"}</div>
-             <div class="pop-row"><span>Section</span><b>${p.section || "-"}</b></div>
-             <div class="pop-row"><span>Row</span><b>${p.row || "-"}</b></div>
-             <div class="pop-row"><span>Status</span><b class="status-${p.status || "available"}">${p.status === "sold" ? labels.statusSold : p.status === "reserved" ? labels.statusReserved : labels.statusAvailable}</b></div>`
+             <div class="pop-row"><span>${t.section}</span><b>${p.section || "-"}</b></div>
+             <div class="pop-row"><span>${t.row}</span><b>${p.row || "-"}</b></div>
+             <div class="pop-row"><span>${t.status}</span><b class="status-${p.status || "available"}">${p.status === "sold" ? labels.statusSold : p.status === "reserved" ? labels.statusReserved : labels.statusAvailable}</b></div>`
           );
         });
         map.on("click", "gates-click-area", (e) => {
@@ -615,8 +585,7 @@ addFacilityMarkers(map, facilities);
       map.remove();
     };
   }, []);
- 
-  // تمرير اللغة الحالية إلى مرجع الخريطة لضمان جلبها داخل أحداث الخريطة دون إعادة تحميل الـ useEffect
+
   useEffect(() => {
     if (mapRef.current) {
       mapRef.current.customLang = lang;
@@ -671,126 +640,93 @@ addFacilityMarkers(map, facilities);
   }
 
   function getPointLabel(point) {
+    if (!point) return t.notSelected;
+
+    if (point.type && t.facilityLabels?.[point.type]) {
+      return t.facilityLabels[point.type];
+    }
+
     return (
       point?.label ||
-      point?.name ||
+      point?.name_en ||
+      point?.nameEn ||
+      point?.english_name ||
       point?.name_ar ||
+      point?.name ||
       point?.seat_id ||
       point?.id ||
       point?.seat ||
-      "Selected Point"
+      t.notSelected
     );
   }
 
-  function pointDistance(a, b) {
-    if (!a || !b) return Number.POSITIVE_INFINITY;
-
-    const dx = Number(a[0]) - Number(b[0]);
-    const dy = Number(a[1]) - Number(b[1]);
-
-    return Math.sqrt(dx * dx + dy * dy);
+  function getFacilityLabel(type) {
+    const key = String(type || "facility").toLowerCase();
+    return t.facilityLabels?.[key] || t.nearbyFacilities;
   }
 
-  function getAllWalkwayRings() {
-    const data = walkwaysRef.current;
-    if (!data?.features) return [];
-
-    const rings = [];
-
-    data.features.forEach((feature) => {
-      const geom = feature.geometry;
-      if (!geom?.coordinates) return;
-
-      if (geom.type === "Polygon") {
-        geom.coordinates.forEach((ring) => rings.push(ring));
-      }
-
-      if (geom.type === "MultiPolygon") {
-        geom.coordinates.forEach((polygon) => {
-          polygon.forEach((ring) => rings.push(ring));
-        });
-      }
-
-      // احتياط لو كان ملف الممرات LineString وليس Polygon
-      if (geom.type === "LineString") {
-        rings.push(geom.coordinates);
-      }
-
-      if (geom.type === "MultiLineString") {
-        geom.coordinates.forEach((line) => rings.push(line));
-      }
-    });
-
-    return rings.filter((ring) => Array.isArray(ring) && ring.length >= 2);
-  }
-
-  function isPointInsideRing(point, ring) {
-    if (!point || !ring?.length) return false;
-    const [x, y] = point;
-    let inside = false;
-
-    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-      const xi = ring[i][0], yi = ring[i][1];
-      const xj = ring[j][0], yj = ring[j][1];
-
-      const intersects = ((yi > y) !== (yj > y)) &&
-        (x < ((xj - xi) * (y - yi)) / ((yj - yi) || 1e-12) + xi);
-
-      if (intersects) inside = !inside;
+  function getNearbyItemLabel(item, type) {
+    if (lang === "ar") {
+      return item?.name_ar || item?.name || getFacilityLabel(type);
     }
 
-    return inside;
+    return item?.name_en || item?.nameEn || item?.english_name || getFacilityLabel(type);
   }
 
-  function nearestPointOnSegment(point, a, b) {
-    const px = Number(point[0]), py = Number(point[1]);
-    const ax = Number(a[0]), ay = Number(a[1]);
-    const bx = Number(b[0]), by = Number(b[1]);
-
-    const dx = bx - ax;
-    const dy = by - ay;
-    const lengthSquared = dx * dx + dy * dy;
-
-    if (!lengthSquared) return a;
-
-    let t = ((px - ax) * dx + (py - ay) * dy) / lengthSquared;
-    t = Math.max(0, Math.min(1, t));
-
-    return [ax + t * dx, ay + t * dy];
+  function getSeatDetails(seat) {
+    const section = seat?.section || seat?.section_id || seat?.sectionId || seat?.block || seat?.stand_section || "-";
+    const row = seat?.row || seat?.row_id || seat?.rowId || "-";
+    const seatNo = seat?.seat || seat?.seat_number || seat?.seatNo || seat?.number || seat?.id || seat?.seat_id || "-";
+    return { section, row, seatNo };
   }
 
-  function snapToNearestWalkway(originalCoords) {
-    const rings = getAllWalkwayRings();
+  function getOriginForNearby() {
 
-    if (!originalCoords || !rings.length) {
-      return originalCoords;
+    return selectedRouteRef.current?.start?.coordinates || selectedGate?.coordinates || null;
+  }
+
+  async function fetchNearbyFacilities(type) {
+    const normalizedType = String(type || "").toLowerCase();
+    const origin = getOriginForNearby();
+
+    if (!normalizedType) {
+      return;
     }
 
-    // إذا كانت النقطة أصلًا داخل الممر الأبيض، لا نحركها
-    for (const ring of rings) {
-      if (isPointInsideRing(originalCoords, ring)) {
-        return originalCoords;
-      }
+    if (!origin) {
+      setNearbyType(normalizedType);
+      setNearbyFacilities([]);
+      setNearbyLoading(false);
+      setNearbyError(t.selectStartFirst);
+      return;
     }
 
-    // بدل الالتقاط إلى أقرب زاوية فقط، نلتقط إلى أقرب نقطة على حافة الممر الأبيض
-    // هذا يمنع الخط من القفز بشكل قطري غريب داخل المدرجات.
-    let nearest = originalCoords;
-    let minDistance = Number.POSITIVE_INFINITY;
+    const [lon, lat] = origin;
+    const url = `${API_BASE}/directions/near/coordinates=${lon},${lat}/floor=1/poi_cat_id=${normalizedType}`;
 
-    rings.forEach((ring) => {
-      for (let i = 0; i < ring.length - 1; i++) {
-        const candidate = nearestPointOnSegment(originalCoords, ring[i], ring[i + 1]);
-        const d = pointDistance(originalCoords, candidate);
+    try {
+      setNearbyType(normalizedType);
+      setNearbyLoading(true);
+      setNearbyError("");
+      const res = await fetch(url, {
+        headers: { "Accept-Language": lang || "ar" },
+      });
+      const data = await res.json();
 
-        if (d < minDistance) {
-          minDistance = d;
-          nearest = candidate;
-        }
+      if (data?.error || data?.detail) {
+        setNearbyFacilities([]);
+        setNearbyError(data.reason || data.error || data.detail || t.couldNotLoadNearby);
+        return;
       }
-    });
 
-    return nearest;
+      setNearbyFacilities(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("nearest facilities error:", err);
+      setNearbyFacilities([]);
+      setNearbyError(t.failedBackend);
+    } finally {
+      setNearbyLoading(false);
+    }
   }
 
   function selectRoutePoint(point, lngLat, popupHtml) {
@@ -800,14 +736,11 @@ addFacilityMarkers(map, facilities);
     const routePoint = {
       ...point,
       label: getPointLabel(point),
-      // الفرونت إند لا يقرر مسار المشي ولا يلتقط النقطة على walkways_3d.
-      // نرسل الإحداثيات الأصلية للباك إند، والباك هو الذي يطابقها مع routing_network الصحيح.
       coordinates: displayCoords,
     };
 
     const current = selectedRouteRef.current;
 
-    // إذا لم توجد نقطة بداية، أو كان هناك مسار مكتمل، ابدأ اختيار جديد
     if (!current.start || (current.start && current.end)) {
       selectedRouteRef.current = { start: routePoint, end: null };
       setSelectedGate(routePoint);
@@ -815,11 +748,11 @@ addFacilityMarkers(map, facilities);
       setRouteDrawn(false);
       stopRouteAnimation();
       mapRef.current?.getSource("route")?.setData(emptyRoute());
-      setMsg(currentLang === "ar" ? "تم اختيار نقطة البداية. اختاري نقطة النهاية." : "Start point selected. Select the destination point.");
+      setMsg(t.startSelected);
     } else {
       selectedRouteRef.current = { ...current, end: routePoint };
       setSelectedSeat(routePoint);
-      setMsg(currentLang === "ar" ? "تم اختيار نقطتين. اضغطي Find Best Route لحساب المسار." : "Two points selected. Click Find Best Route to calculate the route.");
+      setMsg(t.twoPointsSelected);
     }
 
     if (popupHtml) {
@@ -840,7 +773,6 @@ addFacilityMarkers(map, facilities);
 
     stopRouteAnimation();
 
-    // تغييرات متدرجة للـ dasharray تعطي إحساس حركة الخط باتجاه الوجهة
     const dashFrames = [
       [0, 4, 3],
       [0.5, 3.5, 3],
@@ -871,15 +803,12 @@ addFacilityMarkers(map, facilities);
     }, 90);
   }
 
-  // ── fetchRoute: calls backend pgr_dijkstra and draws the result on the map ──
   async function fetchRoute() {
     if (!selectedGate || !selectedSeat) {
-      setMsg(lang === "ar" ? "اختاري أي نقطتين على الخريطة أولاً." : "Select any two points on the map first.");
+      setMsg(t.selectTwoPointsFirst);
       return;
     }
 
-    // نعتمد على الباك إند فقط في اختيار أقرب نقطة على routing_network.
-    // لا نستخدم routeCoordinates من walkways_3d حتى لا يطلع المسار على حدود المضلعات أو يقطع السكشن.
     const startCoords = selectedGate.coordinates;
     const endCoords = selectedSeat.coordinates;
 
@@ -890,24 +819,23 @@ addFacilityMarkers(map, facilities);
     const params = new URLSearchParams({
       start_lon: gateLon,
       start_lat: gateLat,
-      end_lon:   seatLon,
-      end_lat:   seatLat,
-      floor:     floor,
+      end_lon: seatLon,
+      end_lat: seatLat,
+      floor: floor,
     });
+
     const url = `${API_BASE}/directions/coords?${params}`;
 
     try {
-      setMsg(lang === "ar" ? "جاري حساب المسار..." : "Calculating route...");
+      setMsg(t.calculatingRoute);
       const res  = await fetch(url);
       const data = await res.json();
 
       if (data.error) {
-        setMsg(lang === "ar" ? `خطأ: ${data.reason || data.error}` : `Error: ${data.reason || data.error}`);
+        setMsg(`${t.routeError}: ${data.reason || data.error}`);
         return;
       }
 
-      // نرسم المسار كما يرجع من الباك إند فقط.
-      // لا نضيف وصلة مستقيمة من البوابة أو المقعد حتى لا يظهر الخط فوق السكشنات.
       const displayRoute = {
         ...(data || {}),
         type: "FeatureCollection",
@@ -941,7 +869,7 @@ addFacilityMarkers(map, facilities);
         }
       }
     } catch (err) {
-      setMsg(lang === "ar" ? "فشل الاتصال بالخادم" : "Failed to connect to backend");
+      setMsg(t.failedBackend);
       console.error("fetchRoute error:", err);
     }
   }
@@ -951,6 +879,9 @@ addFacilityMarkers(map, facilities);
     setSelectedGate(null);
     setSelectedSeat(null);
     setRouteDrawn(false);
+    setNearbyFacilities([]);
+    setNearbyType(null);
+    setNearbyError("");
     stopRouteAnimation();
     setMsg(t.routeMsg);
     mapRef.current?.getSource("route")?.setData(emptyRoute());
@@ -968,19 +899,26 @@ if (type === "exit") {
   el.innerHTML = `
     <span class="old-exit-symbol">↪</span>
   `;
-  el.title = p.name || "Emergency Exit";
+  el.title = getFacilityLabel("exit");
 } else {
   el.className = "gate-marker old-map-marker";
   el.innerHTML = `
     <span class="old-gate-text">GATE</span>
     <span class="old-gate-num">${num}</span>
   `;
-  el.title = p.name || "Gate";
+  el.title = getFacilityLabel("gate");
 }
     el.onclick = () => {
       const currentLang = mapRef.current?.customLang || "en";
+      const routeType = type === "exit" ? "exit" : "gate";
+      const routePoint = { ...p, type: routeType, label: getFacilityLabel(routeType), coordinates: feature.geometry.coordinates };
+
+      if (type === "exit") {
+        fetchNearbyFacilities("exit", routePoint);
+      }
+
       selectRoutePoint(
-        { ...p, type: type === "exit" ? "exit" : "gate", label: p.name || (type === "exit" ? "Emergency Exit" : "Gate"), coordinates: feature.geometry.coordinates },
+        routePoint,
         feature.geometry.coordinates,
         `<div class="pop-title">${p.name || "Gate"}</div>
          <div class="pop-row"><span>${t.locationSelected}</span></div>`
@@ -1004,7 +942,7 @@ function addFacilityMarkers(map, data) {
 
     const cfg =
       FACILITY_CONFIG[type] ||
-      { icon: "📍", color: "linear-gradient(135deg,#666,#444)", label: p.name_ar || p.name || "مرفق", labelEn: "Facility" };
+      { icon: "📍", color: "linear-gradient(135deg,#666,#444)" };
 
     const el = document.createElement("button");
     el.className = `facility-marker fac-${type}`;
@@ -1017,13 +955,17 @@ function addFacilityMarkers(map, data) {
 
     el.querySelector(".facility-icon").style.background = cfg.color;
 
-    el.title = p.name_ar || p.name || cfg.label;
+    el.title = getFacilityLabel(type);
 
     el.onclick = () => {
-      const currentLang = mapRef.current?.customLang || "en";
-      const displayLabel = currentLang === "ar" ? (p.name_ar || cfg.label) : (p.name || cfg.labelEn);
+      const facilityType = type || p.type || p.category || "facility";
+      const displayLabel = getFacilityLabel(facilityType);
+      const routePoint = { ...p, type: facilityType, label: displayLabel, coordinates: feature.geometry.coordinates };
+
+      fetchNearbyFacilities(facilityType);
+
       selectRoutePoint(
-        { ...p, type: type || "facility", label: displayLabel, coordinates: feature.geometry.coordinates },
+        routePoint,
         feature.geometry.coordinates,
         `<div class="pop-title">${displayLabel}</div>
          <div class="pop-row"><span>${cfg.icon} ${displayLabel}</span></div>`
@@ -1073,6 +1015,31 @@ function addFacilityMarkers(map, data) {
               <div className="route-badge">⌁</div>
               <strong>{msg}</strong>
             </div>
+
+            {selectedSeat?.type === "seat" && (() => {
+              const seat = getSeatDetails(selectedSeat);
+              return (
+                <div className="seat-guidance-card">
+                  <div className="seat-guidance-success">
+                    {t.youReachedDestination}
+                  </div>
+                  <div className="seat-guidance-main">
+                    {`${t.goToSection} ${seat.section}`}
+                  </div>
+                  <div className="seat-guidance-grid">
+                    <div>
+                      <span>{t.row}</span>
+                      <strong>{seat.row}</strong>
+                    </div>
+                    <div>
+                      <span>{t.seat}</span>
+                      <strong>{seat.seatNo}</strong>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
            <div className="route-actions">
               <button className="primary-action" type="button" onClick={fetchRoute}>
                   {t.findRoute}
@@ -1086,30 +1053,96 @@ function addFacilityMarkers(map, data) {
           <section className="map-column">
             <div className="map-card">
               <div id="map" />
-            
+
               <div className="map-credit">MapLibre ●</div>
             </div>
 
           </section>
 
-          <aside className="panel legend-panel">
-            <h2>{t.mapLegend}</h2>
-            <div className="legend-list">
-              <div className="legend-row"><span className="legend-icon gate">G</span><strong>{FACILITY_CONFIG.gate[lang === "ar" ? "label" : "labelEn"]}</strong></div>
-              <div className="legend-row"><span className="legend-icon exit">↪</span><strong>{FACILITY_CONFIG.exit[lang === "ar" ? "label" : "labelEn"]}</strong></div>
-              <div className="legend-row"><span className="legend-icon restroom">🚻</span><strong>{FACILITY_CONFIG.restroom[lang === "ar" ? "label" : "labelEn"]}</strong></div>
-              <div className="legend-row"><span className="legend-icon food">🍴</span><strong>{FACILITY_CONFIG.food[lang === "ar" ? "label" : "labelEn"]}</strong></div>
-              <div className="legend-row"><span className="legend-icon medical">✚</span><strong>{FACILITY_CONFIG.medical[lang === "ar" ? "label" : "labelEn"]}</strong></div>
-              <div className="legend-row"><span className="legend-icon prayer">🕌</span><strong>{FACILITY_CONFIG.prayer[lang === "ar" ? "label" : "labelEn"]}</strong></div>
+          <aside className="panel nearby-panel">
+            <h2>
+              {nearbyType
+                ? `${t.nearest} ${getFacilityLabel(nearbyType)}`
+                : t.nearbyFacilities}
+            </h2>
+
+            {!nearbyType && (
+              <p className="panel-hint">
+                {t.clickFacilityHint}
+              </p>
+            )}
+
+            {nearbyLoading && (
+              <div className="nearby-empty">
+                {t.loadingNearest}
+              </div>
+            )}
+
+            {nearbyError && !nearbyLoading && (
+              <div className="nearby-error">{nearbyError}</div>
+            )}
+
+            {!nearbyLoading && !nearbyError && nearbyType && nearbyFacilities.length === 0 && (
+              <div className="nearby-empty">
+                {t.noNearbyResults}
+              </div>
+            )}
+
+            <div className="nearby-list">
+              {nearbyFacilities.slice(0, 5).map((item, index) => (
+                <button
+                  key={`${item.id}-${index}`}
+                  className="nearby-card"
+                  type="button"
+                  onClick={() => {
+                    const coords = item.geometry?.coordinates;
+                    if (!coords) return;
+                    const itemLabel = getNearbyItemLabel(item, nearbyType);
+                    selectRoutePoint(
+                      {
+                        id: item.id,
+                        type: item.type || nearbyType,
+                        label: itemLabel,
+                        name_ar: item.name_ar || item.name,
+                        name_en: item.name_en || item.nameEn || item.english_name,
+                        coordinates: coords,
+                      },
+                      coords,
+                      `<div class="pop-title">${itemLabel}</div>
+                       <div class="pop-row"><span>${t.distance}</span><b>${Math.round(item.distance || 0)} m</b></div>`
+                    );
+                    mapRef.current?.flyTo({ center: coords, zoom: 20.2, duration: 700 });
+                  }}
+                >
+                  <span className="nearby-rank">{index + 1}</span>
+                  <span className="nearby-info">
+                    <strong>{getNearbyItemLabel(item, nearbyType)}</strong>
+                    <small>{t.approxDistance}: {Math.round(item.distance || 0)} m</small>
+                  </span>
+                  <span className="nearby-icon">{FACILITY_CONFIG[nearbyType]?.icon || "📍"}</span>
+                </button>
+              ))}
             </div>
           </aside>
+        </section>
+
+        <section className="legend-strip">
+          <div className="legend-strip-title">{t.legend}</div>
+          <div className="legend-strip-list">
+            <div className="legend-strip-item"><span className="legend-icon gate">G</span><strong>{getFacilityLabel("gate")}</strong></div>
+            <div className="legend-strip-item"><span className="legend-icon exit">↪</span><strong>{getFacilityLabel("exit")}</strong></div>
+            <div className="legend-strip-item"><span className="legend-icon restroom">🚻</span><strong>{getFacilityLabel("restroom")}</strong></div>
+            <div className="legend-strip-item"><span className="legend-icon food">🍴</span><strong>{getFacilityLabel("food")}</strong></div>
+            <div className="legend-strip-item"><span className="legend-icon medical">✚</span><strong>{getFacilityLabel("medical")}</strong></div>
+            <div className="legend-strip-item"><span className="legend-icon prayer">🕌</span><strong>{getFacilityLabel("prayer")}</strong></div>
+          </div>
         </section>
       </section>
 
     </main>
   );
 }
-// ─── دوال بناء الطبقات ────────────────────────────────────────────
+
 function normalizeText(value) {
   return String(value ?? "").trim().toUpperCase();
 }
@@ -1156,45 +1189,6 @@ function normalizeSeatPoints(seats) {
       geometry: seat.geometry,
     })),
   };
-}
-function makeOuterFloor(sections) {
-  const b = getBounds([sections]);
-  const c = getCenter(b);
-  const rx = (b.maxLng - b.minLng) * 0.58;
-  const ry = (b.maxLat - b.minLat) * 0.58;
-  return ellipseFeatureCollection(c.lng, c.lat, rx, ry, 96, { name: "outer-floor" });
-}
-function makeInnerFloor(sections) {
-  const b = getBounds([sections]);
-  const c = getCenter(b);
-  const rx = (b.maxLng - b.minLng) * 0.47;
-  const ry = (b.maxLat - b.minLat) * 0.47;
-  return ellipseFeatureCollection(c.lng, c.lat, rx, ry, 96, { name: "inner-floor" });
-}
-function makeStadiumWalls(sections) {
-  const b = getBounds([sections]);
-  const c = getCenter(b);
-  const outerRx = (b.maxLng - b.minLng) * 0.62;
-  const outerRy = (b.maxLat - b.minLat) * 0.62;
-  const innerRx = (b.maxLng - b.minLng) * 0.54;
-  const innerRy = (b.maxLat - b.minLat) * 0.54;
-  const outer = ellipseRing(c.lng, c.lat, outerRx, outerRy, 112);
-  const inner = ellipseRing(c.lng, c.lat, innerRx, innerRy, 112).reverse();
-  return {
-    type: "FeatureCollection",
-    features: [{
-      type: "Feature",
-      properties: { name: "oval-wall" },
-      geometry: { type: "Polygon", coordinates: [outer, inner] }
-    }]
-  };
-}
-function makeCleanField(sections) {
-  const b = getBounds([sections]);
-  const c = getCenter(b);
-  const fw = (b.maxLng - b.minLng) * 0.43;
-  const fh = (b.maxLat - b.minLat) * 0.34;
-  return rectFeatureCollection(c.lng - fw / 2, c.lat - fh / 2, c.lng + fw / 2, c.lat + fh / 2);
 }
 function makeFieldDecor(field) {
   const b = getBounds([field]);
@@ -1247,27 +1241,6 @@ function makeSectionAisles(sections) {
     }
   });
   return { type: "FeatureCollection", features };
-}
-function makeGateBuildings(gates) {
-  return {
-    type: "FeatureCollection",
-    features: gates.features.map(f => {
-      const [lng, lat] = f.geometry.coordinates;
-      const s = 0.000022;
-      return { ...rectFeature(lng - s, lat - s, lng + s, lat + s), properties: f.properties || {} };
-    }),
-  };
-}
-function makeFacilitiesBuildings(data) {
-  return {
-    type: "FeatureCollection",
-    features: data.features.map(f => {
-      const [lng, lat] = f.geometry.coordinates;
-      const type = String(f.properties?.type || f.properties?.category || "").toLowerCase();
-      const s = 0.000016;
-      return { ...rectFeature(lng - s, lat - s, lng + s, lat + s), properties: { ...(f.properties || {}), type } };
-    }),
-  };
 }
 function getCenter(b) {
   return { lng: (b.minLng + b.maxLng) / 2, lat: (b.minLat + b.maxLat) / 2 };
@@ -1336,36 +1309,7 @@ function showPopup(map, lngLat, html) {
   popupRefGlobal?.remove?.();
   popupRefGlobal = null;
 }
-function coordsDistance(a, b) {
-  if (!a || !b) return Number.POSITIVE_INFINITY;
-  const dx = Number(a[0]) - Number(b[0]);
-  const dy = Number(a[1]) - Number(b[1]);
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-function connectorLine(from, to, name) {
-  return {
-    type: "Feature",
-    properties: { kind: "connector", name },
-    geometry: { type: "LineString", coordinates: [from, to] },
-  };
-}
-
-function buildDisplayRoute(routeData, startDisplay, startRoute, endRoute, endDisplay) {
- 
-  return {
-    ...(routeData || {}),
-    type: "FeatureCollection",
-    features: routeData?.features || [],
-  };
-}
-
 function emptyRoute() {
   return { type: "FeatureCollection", features: [] };
-}
-function statusAr(status) {
-  if (status === "sold")     return "Sold";
-  if (status === "reserved") return "Reserved";
-  return "Available";
 }
 export default App;

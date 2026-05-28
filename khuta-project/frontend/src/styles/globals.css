@@ -735,17 +735,18 @@ body {
 }
 
 .auth-icon {
-    width: 100%;
+    width: 70px;
+    height: 70px;
     margin: 0 auto 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--purple), var(--orange));
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 34px;
 }
 
-.auth-icon img {
-    width: 120px;
-    height: auto;
-}
 .auth-card h1,
 .login-card h1,
 .register-card h1 {
@@ -1446,23 +1447,24 @@ body.dark .secondary-btn {
 .home-section-title {
     font-size: 36px;
     font-weight: 900;
-    color: var(--text);
+    color: #1f2540;
     margin: 0 0 26px;
     text-align: start;
 }
 
 .live-match-card,
 .upcoming-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #fffaf4;
+    border: 1px solid rgba(124, 58, 237, 0.15);
     border-radius: 22px;
     padding: 28px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
 }
 
 .live-match-card {
     max-width: 620px;
 }
+
 .live-label {
     color: #ef4444;
     font-weight: 900;
@@ -1485,12 +1487,13 @@ body.dark .secondary-btn {
 
 .live-team h3,
 .upcoming-team h3 {
-    color: var(--text);
+    color: #1f2540;
     margin: 6px 0;
 }
+
 .live-team strong {
     font-size: 38px;
-    color: var(--text);
+    color: #1f2540;
 }
 
 .live-score-divider,
@@ -1503,14 +1506,14 @@ body.dark .secondary-btn {
     align-items: center;
     justify-content: center;
     font-weight: 900;
-     color: var(--text);
+    color: #7b8195;
 }
 
 .match-info-row {
     display: flex;
     gap: 18px;
     flex-wrap: wrap;
-    color: var(--text);
+    color: #7b8195;
     margin-top: 22px;
 }
 
@@ -1566,92 +1569,384 @@ body.dark .secondary-btn {
     .upcoming-grid {
         grid-template-columns: 1fr;
     }
-}/* حاوية البانر الأساسية المعتمدة على الخلفية */
-.hero-welcome-banner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 360px; /* يعطي عمق وارتفاع ممتاز مثل الصورة تماماً */
-    padding: 48px 6%;
-    border-radius: 28px;
-    margin-bottom: 40px;
-    overflow: hidden;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+.navigation-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 300px) minmax(520px, 1fr) minmax(280px, 320px);
+  gap: 18px;
+  align-items: stretch;
 }
 
-/* طبقة التعتيم الفخمة لبروز النص والكلام */
-.hero-welcome-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(16, 28, 43, 0.85), rgba(16, 28, 43, 0.4));
-    z-index: 1;
+.panel {
+  border-radius: 22px;
 }
 
-/* حاوية النص */
-.hero-welcome-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
+.nearby-panel {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(124, 58, 237, 0.10);
+  box-shadow: 0 18px 45px rgba(80, 54, 110, 0.10);
+  padding: 22px;
+  min-height: 620px;
+}
+
+.nearby-panel h2 {
+  margin: 0 0 16px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #15172b;
+}
+
+.panel-hint,
+.nearby-empty,
+.nearby-error {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  line-height: 1.7;
+  font-size: 14px;
+  color: #6b6475;
+  background: #f7f2ec;
+}
+
+.nearby-error {
+  color: #9f1239;
+  background: #fff1f2;
+}
+
+.nearby-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.nearby-card {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: #fbfaf8;
+  border-radius: 16px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 34px 1fr 38px;
+  gap: 10px;
+  align-items: center;
+  text-align: start;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.nearby-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(48, 35, 75, 0.12);
+  border-color: rgba(124, 58, 237, 0.18);
+}
+
+.nearby-rank {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  background: #efe9ff;
+  color: #6d28d9;
+  font-weight: 800;
+}
+
+.nearby-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nearby-info strong {
+  font-size: 14px;
+  color: #141526;
+}
+
+.nearby-info small {
+  font-size: 12px;
+  color: #5f6675;
+}
+
+.nearby-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  background: #eaf3ff;
+}
+
+.seat-guidance-card {
+  margin-top: 16px;
+  padding: 15px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f4ef 100%);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.seat-guidance-success {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #e9f8ee;
+  color: #147a36;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.seat-guidance-main {
+  font-weight: 800;
+  color: #3b1d72;
+  margin-bottom: 12px;
+}
+
+.seat-guidance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.seat-guidance-grid > div {
+  padding: 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.seat-guidance-grid span {
+  display: block;
+  color: #7b7280;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.seat-guidance-grid strong {
+  color: #15172b;
+  font-size: 16px;
+}
+
+.legend-strip {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 45px rgba(80, 54, 110, 0.10);
+  border: 1px solid rgba(124, 58, 237, 0.10);
+}
+
+.legend-strip-title {
+  text-align: center;
+  color: #5b21b6;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.legend-strip-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px 34px;
+}
+
+.legend-strip-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #15172b;
+  font-size: 13px;
+}
+
+@media (max-width: 1200px) {
+  .navigation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nearby-panel {
+    min-height: unset;
+  }
+}
+
+.map-page .navigation-grid {
+    align-items: stretch;
+}
+
+.map-page .route-panel,
+.map-page .nearby-panel,
+.map-page .map-card {
+    min-height: 620px;
+}
+
+.map-page .route-placeholder {
+    padding: 16px;
+    line-height: 1.55;
+}
+
+.map-page .selection-summary {
     gap: 12px;
-    text-align: start; /* محاذاة النص واللوجو تلقائياً حسب اتجاه اللغة */
-    width: 100%;
 }
 
-/* تنسيق العنوان الرئيسي المدمج معه اللوجو */
-.hero-welcome-content h1 {
-    font-size: 48px;
+.map-page .selection-row {
+    padding: 12px;
+    border-radius: 14px;
+}
+
+.map-page .selection-row span {
+    font-size: 13px;
+    opacity: 0.75;
+}
+
+.map-page .selection-row strong {
+    font-size: 14px;
+}
+
+.map-page .route-actions {
+    gap: 12px;
+}
+
+.map-page .route-panel .primary-action,
+.map-page .route-panel .danger-action {
+    min-height: 44px;
     font-weight: 800;
-    color: #ffffff; /* أبيض ثابت ليتناسب مع الخلفية المظلمة */
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 16px; /* المسافة بين اللوجو و كلمة خُطى */
 }
 
-/* استايل الشعار بجانب الكلمة */
-.hero-welcome-logo {
-    height: 58px; /* متناسق تماماً مع حجم النص المرتفع */
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+.map-page .legend-strip {
+    padding: 16px 18px;
 }
 
-/* استايل الوصف */
-.hero-welcome-content p {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0;
-    max-width: 600px;
-    font-weight: 500;
+.map-page .legend-strip-list {
+    justify-content: space-around;
+    gap: 18px;
 }
 
-/* دقة التجاوب مع شاشات الجوال */
-@media (max-width: 768px) {
-    .hero-welcome-banner {
-        min-height: 280px;
-        padding: 32px 20px;
+.map-page .legend-strip-item {
+    font-size: 14px;
+}
+
+.map-page .legend-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+}
+
+.map-page .map-credit {
+    left: 12px;
+    bottom: 12px;
+    padding: 6px 10px;
+}
+
+.map-page .nearby-list {
+    gap: 12px;
+}
+
+.map-page .nearby-card {
+    padding: 12px;
+    gap: 10px;
+}
+
+.map-page .nearby-icon {
+    font-size: 20px;
+}
+
+.map-page .nearby-info strong {
+    font-size: 14px;
+}
+
+.map-page .nearby-info small {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+@media (max-width: 1200px) {
+    .map-page .route-panel,
+    .map-page .nearby-panel,
+    .map-page .map-card {
+        min-height: unset;
     }
-    .hero-welcome-content {
-        text-align: center;
-        align-items: center;
-    }
-    .hero-welcome-content h1 {
-        font-size: 32px;
-        justify-content: center;
-        gap: 10px;
-    }
-    .hero-welcome-logo {
-        height: 42px;
-    }
-    .hero-welcome-content p {
-        font-size: 14px;
-    }
+}
+
+body.dark .map-page .nearby-panel,
+.dark .map-page .nearby-panel,
+[data-theme="dark"] .map-page .nearby-panel {
+    background: var(--card);
+    border-color: var(--border);
+}
+
+body.dark .map-page .legend-strip,
+.dark .map-page .legend-strip,
+[data-theme="dark"] .map-page .legend-strip {
+    background: var(--card);
+    border-color: var(--border);
+}
+
+body.dark .map-page .nearby-card,
+.dark .map-page .nearby-card,
+[data-theme="dark"] .map-page .nearby-card {
+    background: var(--card-2);
+    border-color: var(--border);
+}
+
+body.dark .map-page .panel-hint,
+body.dark .map-page .nearby-empty,
+body.dark .map-page .nearby-error,
+.dark .map-page .panel-hint,
+.dark .map-page .nearby-empty,
+.dark .map-page .nearby-error,
+[data-theme="dark"] .map-page .panel-hint,
+[data-theme="dark"] .map-page .nearby-empty,
+[data-theme="dark"] .map-page .nearby-error {
+    background: var(--card-2);
+    color: var(--text);
+}
+
+body.dark .map-page .nearby-info strong,
+body.dark .map-page .legend-strip-item,
+body.dark .map-page .nearby-panel h2,
+.dark .map-page .nearby-info strong,
+.dark .map-page .legend-strip-item,
+.dark .map-page .nearby-panel h2,
+[data-theme="dark"] .map-page .nearby-info strong,
+[data-theme="dark"] .map-page .legend-strip-item,
+[data-theme="dark"] .map-page .nearby-panel h2 {
+    color: var(--text);
+}
+
+body.dark .map-page .nearby-info small,
+.dark .map-page .nearby-info small,
+[data-theme="dark"] .map-page .nearby-info small {
+    color: var(--muted);
+}
+
+body.dark .map-page .nearby-rank,
+.dark .map-page .nearby-rank,
+[data-theme="dark"] .map-page .nearby-rank {
+    background: rgba(168, 85, 247, 0.18);
+    color: #d8b4fe;
+}
+
+body.dark .map-page .nearby-icon,
+.dark .map-page .nearby-icon,
+[data-theme="dark"] .map-page .nearby-icon {
+    background: rgba(96, 165, 250, 0.16);
+}
+
+body.dark .map-page .seat-guidance-card,
+.dark .map-page .seat-guidance-card,
+[data-theme="dark"] .map-page .seat-guidance-card {
+    background: var(--card-2);
+    border-color: var(--border);
+}
+
+body.dark .map-page .seat-guidance-grid > div,
+.dark .map-page .seat-guidance-grid > div,
+[data-theme="dark"] .map-page .seat-guidance-grid > div {
+    background: var(--card);
+    border-color: var(--border);
+}
+
+body.dark .map-page .seat-guidance-main,
+body.dark .map-page .seat-guidance-grid strong,
+.dark .map-page .seat-guidance-main,
+.dark .map-page .seat-guidance-grid strong,
+[data-theme="dark"] .map-page .seat-guidance-main,
+[data-theme="dark"] .map-page .seat-guidance-grid strong {
+    color: var(--text);
 }
